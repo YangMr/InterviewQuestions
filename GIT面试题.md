@@ -2,32 +2,26 @@
 
 ## 1. 列举工作中常用的几个git命令?
 
-```
 新增文件的命令：git add file或者git add .
 提交文件的命令：git commit –m或者git commit –a
 查看工作区状况：git status –s
 拉取合并远程分支的操作：git fetch/git merge或者git pull
 查看提交记录命令：git reflog
-```
 
 ## 2. 提交时发生冲突,你能解释冲突是如何产生的吗?你是如何解决的?
 
-```
-	开发过程中，我们都有自己的特性分支，所以冲突发生的并不多，但也碰到过。诸如公共类的公共方法，我和别人同时修改同一个文件，他提交后我再提交就会报冲突的错误.
-	
-	发生冲突，在IDE里面一般都是对比本地文件和远程分支的文件，然后把远程分支上文件的内容手工修改到本地文件，然后再提交冲突的文件使其保证与远程分支的文件一致，这样才会消除冲突，然后再提交自己修改的部分。特别要注意下，修改本地冲突文件使其与远程仓库的文件保持一致后，需要提交后才能消除冲突，否则无法继续提交。必要时可与同事交流，消除冲突.
-	
-	发生冲突，也可以使用命令:
-		通过git stash命令，把工作区的修改提交到栈区，目的是保存工作区的修改；
-		通过git pull命令，拉取远程分支上的代码并合并到本地分支，目的是消除冲突；
-		通过git stash pop命令，把保存在栈区的修改部分合并到最新的工作空间中；
-```
+​	开发过程中，我们都有自己的特性分支，所以冲突发生的并不多，但也碰到过。诸如公共类的公共方法，我和别人同时修改同一个文件，他提交后我再提交就会报冲突的错误.
+​	
+​	发生冲突，在IDE里面一般都是对比本地文件和远程分支的文件，然后把远程分支上文件的内容手工修改到本地文件，然后再提交冲突的文件使其保证与远程分支的文件一致，这样才会消除冲突，然后再提交自己修改的部分。特别要注意下，修改本地冲突文件使其与远程仓库的文件保持一致后，需要提交后才能消除冲突，否则无法继续提交。必要时可与同事交流，消除冲突.
+​	
+​	发生冲突，也可以使用命令:
+​		通过git stash命令，把工作区的修改提交到栈区，目的是保存工作区的修改；
+​		通过git pull命令，拉取远程分支上的代码并合并到本地分支，目的是消除冲突；
+​		通过git stash pop命令，把保存在栈区的修改部分合并到最新的工作空间中；
 
 ## 3. 如果本次提交误操作,如何撤销?
 
-```
 如果想撤销提交到索引区的文件，可以通过git reset HEAD file；如果想撤销提交到本地仓库的文件，可以通过git reset –soft HEAD^n恢复当前分支的版本库至上一次提交的状态，索引区和工作空间不变更；可以通过git reset –mixed HEAD^n恢复当前分支的版本库和索引区至上一次提交的状态，工作区不变更；可以通过git reset –hard HEAD^n恢复当前分支的版本库、索引区和工作空间至上一次提交的状态。
-```
 
 ## 4. 如果我想修改提交的历史信息，应该用什么命令？
 
@@ -71,7 +65,6 @@
 ​		git fetch 也用于相同的目的，但它的工作方式略有不同。当你执行 git fetch 时，它会从所需的分支中提取所有新提交，并将其存储在本地存储库中的新分支中。如果要在目标分支中反映这些更改，必须在 git fetch 之后执行git merge。只有在对目标分支和获取的分支进行合并后才会更新目标分支。为了方便起见，请记住以下等式：
 
 <center><h5>git pull = git fetch + git merge</h5></center>
-
 
 ## 8. 使用过git merge和git rebase吗？它们之间有什么区别？
 
@@ -297,7 +290,41 @@ Git使用 C 语言编写。 GIT 很快，C 语言通过减少运行时的开销�
 **GitFlow的好处**
 为不同的分支分配一个明确的角色，并定义分支之间如何交互以及什么时间交互；可以帮助大型项目理清分支之间的关系，简化分支的复杂度。
 
+## 27. 请描述什么是工作区、暂存区和本地仓库？
 
+![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsA2NBx1.jpg) 对于任何一个文件，在 Git 内都只有三种区域：工作区，暂存区和本地仓库。
+
+![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsUovxDr.jpg) 工作区：表示新增或修改了某个文件，但还没有提交保存；
+
+![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsHFpZ79.jpg) 暂存区：表示把已新增或修改的文件，放在下次提交时要保存的清单中; ![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsKbNmWa.jpg) 本地仓库：文件已经被安全地保存在本地仓库中了。
+
+![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsn9oK4x.png) 
+
+## 28. 请写出查看分支、创建分支、删除分支、切换分支、合并分支的命令以及写出解决冲突的思路？
+
+![image-20191121124053759](/Users/yangling/Library/Application Support/typora-user-images/image-20191121124053759.png)
+
+​	![image-20191121124112570](/Users/yangling/Library/Application Support/typora-user-images/image-20191121124112570.png)
+
+## 29. 请写出将工作区文件推送到远程仓库的思路？（两种情况都写出来）
+
+## 30.请写出团队内部协作开发的流程？
+
+![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsVF8FPK.png)
+
+这块应该在描述出分支的创建与切换。
+
+## 31. 请写出远程跨团队协作开发的流程？
+
+![img](file:////var/folders/yw/fjx4d7k92cq5zff6y5qmhy8h0000gn/T/com.kingsoft.wpsoffice.mac/wps-yangling/ksohtml/wpsfAWlqR.png)
+
+## 32. 请写出配置ssh的思路？
+
+## 33. 请写出你们公司团队内部协作开发的流程？
+
+## 34. 请描述什么是GitLab,或者说出你对GitLab的理解？
+
+## 35. 请写出你所参与的多人协同开发时候，项目都有哪些分支，分支名是什么，每个分支代表什么，以及分支是由谁合并？
 
 # 参考文献：
 
