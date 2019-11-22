@@ -151,3 +151,9 @@ A 网站使用令牌，向 GitHub 请求用户数据。
 # 参考文献：
 
 https://www.lizenghai.com/archives/32479.html
+
+https://blog.csdn.net/belalds/article/details/80653432
+
+https://coding.net/help/doc/account/3rd-party-account.html
+
+https://www.jianshu.com/p/6cc69171b280
