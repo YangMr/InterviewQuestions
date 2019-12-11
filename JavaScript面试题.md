@@ -531,3 +531,213 @@ function stopDefault( e ) {
 9. ES6 新增了 Set 和 Map 数据结构
 10. ES6 原生提供 Proxy 构造函数，用来生成 Proxy 实例
 11. ES6 新增了生成器(Generator)和遍历器(Iterator)
+
+## 第三天（2019-12-09）
+
+### 1.  **javascript** 的 **typeof** 返回哪些数据类型 
+
+### 2. split()、join()的区别？
+
+### 3. 事件绑定与普通事件有什么区别？
+
+### 4. call和apply的区别？
+
+**call** 方法**:**
+
+ 语法:call(thisObj，Object1,Object2...)
+
+ 定义:调用一个对象的一个方法，以另一个对象替换当前对象。
+
+ 说明:
+ call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始 的上下文改变为由 thisObj 指定的新对象。
+
+如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。 
+
+**apply** 方法:
+语法:apply(thisObj，[argArray]) 
+
+定义:应用某一对象的一个方法，用另一个对象替换当前对象。
+
+说明:
+
+如果 argArray 不是一个有效的数组或者不是 arguments 对象，那么将导致一个 TypeError。
+
+如果没有提供 argArray 和 thisObj 任何一个参数，那么 Global 对象将被用作 thisObj， 并且无法被传递任何参数 
+
+### 5. 请写出b继承a的方法？
+
+```javascript
+function A( age, name ){
+  this.age = age;
+  this.name = name;
+}
+A.prototype.show = function(){ alert('父级方法');
+}
+function B(age,name,job){
+
+A.apply( this, arguments );
+  this.job = job;
+}
+B.prototype = new A();
+var b = new A(14,'侠客行');
+var a = new B(15,'狼侠','侠客');
+
+```
+
+### 6. JavaScript事件流模型都有什么？
+
+“事件冒泡”:事件开始由最具体的元素接受，然后逐级向上传播 
+
+“事件捕捉”:事件由最不具体的节点先接收，然后逐级向下，一直到最具体的 
+
+“DOM 事件流”:三个阶段:事件捕捉，目标阶段，事件冒泡 
+
+### 7. 用 **js** 实现随机选取 **10**–**100** 之间的 **10** 个数字，存入一个数组，并排序。 
+
+```javascript
+function randomNub(aArray, len, min, max) { 
+  
+  if (len >= (max - min)) {
+			return '超过' + min + '-' + max + '之间的个数范围' + (max - min - 1)
++ '个的总数';
+	}
+  
+	if (aArray.length >= len) { 
+    aArray.sort(function(a, b) {
+			return a - b 
+    });
+		return aArray; 
+  }
+  
+	var nowNub = parseInt(Math.random() * (max - min - 1)) + (min + 1);
+  
+  for (var j = 0; j < aArray.length; j++) {
+			if (nowNub == aArray[j]) { 
+        randomNub(aArray, len, min, max); 
+        return;
+		} 
+  }
+  
+  aArray.push(nowNub); 
+
+	randomNub(aArray, len, min, max); 
+
+	return aArray;
+} 
+var arr=[];
+
+randomNub(arr,10,10,100);
+```
+
+### 8. 有这样一个 **URL**:**http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e**， 请写一段 **JS** 程序提取 **URL** 中的各个 **GET** 参数**(**参数名和参数个数不确定**)**，将 其按 **key-value** 形式返回到一个 **json** 结构中，如**{a:**’**1**′**, b:**’**2**′**, c:**”**, d:**’ **xxx**’**, e:undefined}**。 
+
+```
+function serilizeUrl(url) { 
+	var urlObject = {};
+	if (/\?/.test(url)) {
+	
+			var urlString = url.substring(url.indexOf("?") + 1); 
+      
+      var urlArray = urlString.split("&");
+
+	for (var i = 0, len = urlArray.length; i < len; i++) { 
+			var urlItem = urlArray[i];
+			var item = urlItem.split("=");
+    	urlObject[item[0]] = item[1];
+		}
+		return urlObject; 
+	}
+	return null; 
+}
+
+```
+
+### 9. JavaScript如何实现继承？
+
+1. 构造继承法
+2. 原型继承法
+3. 实例继承法
+
+### 10. 请你谈谈cookie的弊端？
+
+缺点:
+ 1.Cookie 数量和长度的限制。每个 domain 最多只能有 20 条 cookie，每个 cookie 长度 不能超过 4KB，否则会被截掉。
+
+ 2.安全性问题。如果 cookie 被人拦截了，那人就可以取得所有的 session 信息。即使加密也与事无补，因为拦截者并不需要知道 cookie 的意义，他只要原样转发 cookie 就可以达到目的了。 
+
+3.有些状态不可能保存在客户端。例如，为了防止重复提交表单，我们需要在服务器端保存 一个计数器。如果我们把这个计数器保存在客户端，那么它起不到任何作用。 
+
+## 第四天（2019-12-10）
+
+### 1. 哪些操作会造成内存泄漏? 
+
+内存泄漏指任何对象在您不再拥有或需要它之后仍然存在。 垃圾回收器定期扫描对象，并计算引用了每个对象的其他对象的数量。如果一个对象的引用 数量为 0(没有其他对象引用过该对象)，或对该对象的惟一引用是循环的，那么该对象 的内存即可回收。
+
+1. setTimeout 的第一个参数使用字符串而非函数的话，会引发内存泄漏。
+2. 闭包
+3. 控制台日志
+4. 循环(在两个对象彼此引用且彼此保留时，就会产生一个循环) 
+
+### 2. 事件委托是什么？
+
+让利用事件冒泡的原理，让自己的所触发的事件，让他的父元素代替执行! 
+
+### 3. 闭包是什么，有什么特性，对页面有什么影响 
+
+我的理解是，闭包就是能够读取其他函数内部变量的函数。在本质上，闭包就 是将函数内部和函数外部连接起来的一座桥梁。 
+
+```
+function outer(){ 
+	var num = 1; 
+	function inner(){
+		var n = 2;
+		alert(n + num); 
+	}
+	return inner;
+}
+outer()();
+```
+
+http://blog.csdn.net/gaoshanwudi/article/details/7355794 此链接可查看(问这 个问题的不是一个公司) 
+
+### 4. 解释 **jsonp** 的原理，以及为什么不是真正的 **ajax** 
+
+### 5. 你如何优化自己的代码? 
+
+代码重用 
+
+避免全局变量(命名空间，封闭空间，模块化 mvc..) 
+
+拆分函数避免函数过于臃肿
+
+注释 
+
+### 6. 请简要描述web前端性能需要考虑哪方面，你的优化思路是什么？
+
+### 7. 主流的浏览器内核都有哪些？
+
+### 8. 说下什么是Eslint？
+
+### 9. Javascript 作用链域? 
+
+理解变量和函数的访问范围和生命周期，全局作用域与局部作用域的区别，JavaScript 中没有块作用域，函数的嵌套形成不同层次的作用域，嵌套的层次形成链式形式，通过作用 域链查找属性的规则需要深入理解。 
+
+### 10. 用原生 **JavaScript** 的实现过什么功能吗? 
+
+主要考察原生 js 的实践经验 
+
+## 第五天（2019-12-11）
+
+## 第六天（2019-12-12）
+
+## 第七天（2019-12-13）
+
+## 第八天（2019-12-16）
+
+## 第九天（2019-12-17）
+
+## 第十天（2019-12-18）
+
+## 第十一天（2019-12-19）
+
+## 第十二天（2019-12-20）
